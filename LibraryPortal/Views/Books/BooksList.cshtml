@@ -1,0 +1,63 @@
+﻿@model IEnumerable<Book>
+@using LibraryPortal.Util
+
+@{
+    ViewData["Title"] = "BooksList";
+}
+
+<h1>Books List</h1>
+@if(User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+{
+    <div class="col-3">
+        <a href="/Books/Create" class="btn btn-primary">Add New Book</a>
+    </div>
+}
+
+
+@if (Model.Count() < 1)
+{
+    <div class="row">
+        <div class="col-6">
+            No Books are available to display.
+        </div>
+    </div>
+}
+
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            ISBN
+                        </th>
+                        <th>
+                            Author
+                        </th>
+                        <th>
+                            Description
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.ISBN</td>
+                        <td>@book.Author</td>
+                        <td>@book.Description</td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}

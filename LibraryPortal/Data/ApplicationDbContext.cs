@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using LibraryPortal.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace LibraryPortal.Data
@@ -9,5 +10,7 @@ namespace LibraryPortal.Data
             : base(options)
         {
         }
+
+        public DbSet<Book> Book { get; set; }
     }
 }
