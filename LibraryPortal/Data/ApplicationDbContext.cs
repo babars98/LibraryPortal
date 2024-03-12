@@ -12,5 +12,6 @@ namespace LibraryPortal.Data
         }
 
         public DbSet<Book> Book { get; set; }
+        public DbSet<Student> Student { get; set; }
     }
 }
