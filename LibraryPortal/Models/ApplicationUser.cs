@@ -1,9 +1,9 @@
-﻿
+﻿using Microsoft.AspNetCore.Identity;
+
 namespace LibraryPortal.Models
 {
-    public class Student
+    public class ApplicationUser : IdentityUser
     {
         public string StudentId { get; set; }
-        public string Email { get; set; }
     }
 }

@@ -9,6 +9,6 @@
     public enum Role
     {
         Admin = 1,
-        Normal = 2
+        Student = 2
     }
 }

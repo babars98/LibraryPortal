@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace LibraryPortal.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -12,6 +12,5 @@ namespace LibraryPortal.Data
         }
 
         public DbSet<Book> Book { get; set; }
-        public DbSet<Student> Student { get; set; }
     }
 }
