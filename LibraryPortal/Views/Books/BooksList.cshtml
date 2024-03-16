@@ -13,7 +13,6 @@
     </div>
 }
 
-
 @if (Model.Count() < 1)
 {
     <div class="row">
@@ -55,9 +54,56 @@ else
                         <td>@book.ISBN</td>
                         <td>@book.Author</td>
                         <td>@book.Description</td>
+                        <td>
+                            @if (User.Identity.IsAuthenticated && User.IsInRole("Student"))
+                            {
+                                <div class="col-3">
+                                    <button class="btn btn-primary" onclick="borrowBook(@book.BookId)">Borrow</button>
+                                </div>
+                            }
+                        </td>
                     </tr>
                 }
             </table>
         </div>
     </div>
+}
+
+@section Scripts {
+
+    <script>
+        let borrowBook = (bookId) => {
+
+            $.ajax({
+                url: "/Books/BorrowBook",
+                type: "POST",
+                data: { bookId: bookId },
+                success: function (data) {
+                    borrowBookRsponse(data);
+                },
+                error: function (result) {
+                    console.log(result)
+                }
+            })
+        }
+
+        let borrowBookRsponse = (response) => {
+
+            if (response.result)
+                toastr.success('Book borrowd successfully.');
+            
+            else if(response.result == false)
+                toastr.warning(response.message)
+            
+            else
+                toastr.error('Some error occured.')
+
+            // setTimeout(function () {
+            //     window.location.href = window.location.href;
+            // }, 3000)
+        }
+
+    </script>
+
+
 }

@@ -1,0 +1,91 @@
+﻿@model IEnumerable<BookStudentVM>
+
+@{
+    ViewData["Title"] = "MyBooks";
+}
+
+@if (Model.Count() < 1)
+{
+    <div class="row">
+        <div class="col-6">
+            No Books are available to display.
+        </div>
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            Title
+                        </th>
+                        <th>
+                            Borrow Date
+                        </th>
+                        <th>
+
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.BorrowDate</td>
+                        <td>
+                            @if (book.IsOverDue)
+                            {
+                                <p class="bg-danger">OverDue</p>
+                            }   
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" onclick="returnBook(@book.StudentBooksId, @Convert.ToInt32(book.IsOverDue))">Return Book</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+}
+@section Scripts {
+
+    <script>
+
+        let returnBook = (studentBookId, isOverDue) => {
+
+            $.ajax({
+                url: "/Books/ReturnBook",
+                type: "POST",
+                data: { studentBookId: studentBookId, isOverDue: Boolean(isOverDue) },
+                success: function (data) {
+                    returnBookRsponse(data);
+                },
+                error: function (result) {
+                    console.log(result)
+                }
+            })
+        }
+
+        let returnBookRsponse = (response) => {
+            if (response)
+                toastr.success('Book returned successfully.');
+            else
+                toastr.error('Some error occured.')
+
+            setTimeout(function () {
+                window.location.href = window.location.href;
+            }, 3000)
+        }
+
+    </script>
+}
