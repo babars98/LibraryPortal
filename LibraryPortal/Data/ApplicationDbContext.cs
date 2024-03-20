@@ -11,7 +11,7 @@ namespace LibraryPortal.Data
         {
         }
 
-        public DbSet<Book> Book { get; set; }
-        public DbSet<StudentBooks> StudentBooks { get; set; }
+        public virtual DbSet<Book> Book { get; set; }
+        public virtual DbSet<StudentBooks> StudentBooks { get; set; }
     }
 }
